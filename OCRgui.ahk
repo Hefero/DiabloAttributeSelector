@@ -16,7 +16,7 @@ Gui, Add, Edit, x112 y89 w60 h20 vDesired , %Desired%
 Gui, Add, Edit, x112 y129 w60 h20 vDesiredNumber , %DesiredNumber%
 Gui, Add, Edit, x112 y169 w60 h20 vTries , %Tries%
 Gui, Add, Edit, x112 y209 w60 h20 vSleepClick , %SleepClick%
-Gui, Add, Text, x32 y89 w70 h20 , Word
+Gui, Add, Text, x32 y89 w70 h20 , Word(s)
 Gui, Add, Text, x32 y129 w70 h20 , Number
 Gui, Add, Text, x32 y169 w70 h20 , Tries
 Gui, Add, Text, x32 y209 w70 h20 , Sleep Click
