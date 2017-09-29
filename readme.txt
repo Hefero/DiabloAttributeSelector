@@ -38,6 +38,8 @@ Speed 6.0 also.
 new options to come before reading again
 
 -Experiment with higher Delays if you are having troubles
+(I suggest trying Sleep Click 150 and Sleep Wait 2000 if the default
+doesn't work well)
 
 -F12 hotkey will stop
 
