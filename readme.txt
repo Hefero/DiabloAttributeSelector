@@ -23,7 +23,7 @@ downloaded at: http://capture2text.sourceforge.net/
 with AutoHotkey installed (No need for admin rights)
 
 - Put the Desired Attribute in the "Word" field.
-Understand that this is a unique Word the Script will
+Understand that this is the sentence the Script will
 look for.
 So if you want "Area Damage Reduction 20%", you can just
 set "Word" to "Area". and "Number" to "20". If you need
