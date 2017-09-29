@@ -1,5 +1,5 @@
 
- Diablo 3 OCR Enchange made by Hefero
+ #Diablo 3 OCR Enchange made by Hefero
 
 - Unzip Capture2Text into the Script folder. 
 [Version Tested: 4.4.0 (7-28-2017)]
