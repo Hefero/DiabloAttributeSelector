@@ -14,7 +14,6 @@ ______ _____  ___ _________  ___ _____
 \_| |_/\___/ \_/\_/    \__\___/   \___/|___/\___|  
 
 - Unzip Capture2Text into the Script folder. 
-(name the folder "Capture2Text" only).
 [Version Tested: 4.4.0 (7-28-2017)]
 (32 or 64bit, doesn't matter) 
 downloaded at: http://capture2text.sourceforge.net/
@@ -23,7 +22,7 @@ downloaded at: http://capture2text.sourceforge.net/
 with AutoHotkey installed (No need for admin rights)
 
 - Put the Desired Attribute in the "Word" field.
-Understand that this is the sentence the Script will
+Understand that this is a unique Word the Script will
 look for.
 So if you want "Area Damage Reduction 20%", you can just
 set "Word" to "Area". and "Number" to "20". If you need
@@ -38,10 +37,30 @@ Speed 6.0 also.
 -Sleep Wait is the Delay (ms) waiting for the
 new options to come before reading again
 
+-Experiment with higher Delays if you are having troubles
+
 -F12 hotkey will stop
 
--Experiment with Delays to get the best speed
-based on your internet delay
+-v2 update: You can enter a "Word" as "Damage" and number as "1500-1850"
+for instance, and and it will only select if the minimum is equal or higher
+then 1500 and maximum is equal or higher than 1850
+
+
+Known issues: please note that when you first start it, OCR may take up to
+10 seconds to load modules. So it can lag a little on the first try, but after
+that it runs very very fast.
+
+-You need to run game in Windowed(Fullscreen mode)
+
+-Tested Resolutions:
+	1920x1080
+	1680x1050
+	1600x900
+	1366x768
+	1280x1024
+	1280x768
+	1024x768
+	800x600
 
  ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ 
 |______|______|______|______|______|______|______|______|______|______|______|

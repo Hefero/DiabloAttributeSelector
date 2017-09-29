@@ -9,9 +9,8 @@ SetDefaultMouseSpeed, 0
 SetControlDelay, -1
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
-
 ;Initialize Variables and Coordinates
-	Global readfirstline := 0
+	Global readfirstline := 0	
 	Gosub, CoordinateSystem
 	
 	IniRead, Tries, OCRsettings.ini, Settings, Tries
@@ -27,21 +26,37 @@ CoordMode, Mouse, Screen
 		
 		Sleep %SleepWait%
 		Gosub, RunReaders
-		DesiredNumber -= 0.001
-		IfInString, secondline, %Desired% 
-		{
-			if (secondlinenumber > DesiredNumber)
+		
+		
+		
+		
+		
+		
+		
+		IfNotInString, DesiredNumber, - ;;note a damage number
+		{			
+			IfInString, secondline, %Desired% 
 			{
-				IfInString, thirdline, %Desired% 
+				if (secondlinenumber >= DesiredNumber)
 				{
-					if (thirdlinenumber > secondlinenumber) 
+					IfInString, thirdline, %Desired% 
 					{
-						Gosub, ClickThirdLine
-						Gosub, ClickSelect
-						ExitApp
-						;chose
+						if (thirdlinenumber >= secondlinenumber) 
+						{
+							Gosub, ClickThirdLine
+							Gosub, ClickSelect
+							ExitApp
+							;chose
+						}
+						else
+						{
+							Gosub, ClickSecondLine
+							Gosub, ClickSelect
+							ExitApp
+							;chose
+						}
 					}
-					else
+					IfNotInString, thirdline, %Desired% 
 					{
 						Gosub, ClickSecondLine
 						Gosub, ClickSelect
@@ -49,19 +64,35 @@ CoordMode, Mouse, Screen
 						;chose
 					}
 				}
-				IfNotInString, thirdline, %Desired% 
+				else
 				{
-					Gosub, ClickSecondLine
-					Gosub, ClickSelect
-					ExitApp
-					;chose
+					IfInString, thirdline, %Desired%
+					{
+						if (thirdlinenumber >= DesiredNumber) 
+						{
+							Gosub, ClickThirdLine
+							Gosub, ClickSelect
+							ExitApp
+							;chose
+						}
+						else
+						{
+							Gosub, ClickFirstLine
+							Gosub, ClickSelect
+						}
+					}
+					else
+					{
+						Gosub, ClickFirstLine
+						Gosub, ClickSelect
+					}
 				}
 			}
 			else
 			{
-				IfInString, thirdline, %Desired%
+				IfInString, thirdline, %Desired% 
 				{
-					if (thirdlinenumber > DesiredNumber) 
+					if (thirdlinenumber >= Desirednumber) 
 					{
 						Gosub, ClickThirdLine
 						Gosub, ClickSelect
@@ -80,17 +111,95 @@ CoordMode, Mouse, Screen
 					Gosub, ClickSelect
 				}
 			}
+			Tries--
+			IniWrite, %Tries%, OCRsettings.ini, Settings, Tries
+			reload
 		}
-		else
+		IfInString, DesiredNumber, - ;;it is a damage roll
 		{
-			IfInString, thirdline, %Desired% 
+			
+			StringLeft, DesiredNumberArray1, DesiredNumber, 4			
+			StringRight, DesiredNumberArray2, DesiredNumber, 4			
+			
+			
+			IfInString, secondline, %Desired% 
 			{
-				if (thirdlinenumber > Desirednumber) 
+				
+				StringLeft, secondlinenumberArray1, secondlinenumber, 4			
+				StringRight, secondlinenumberArray2, secondlinenumber, 4	
+				if (secondlinenumberArray1 >= DesiredNumberArray1 and secondlinenumberArray2 >= DesiredNumberArray2)
 				{
-					Gosub, ClickThirdLine
-					Gosub, ClickSelect
-					ExitApp
-					;chose
+					IfInString, thirdline, %Desired% 
+					{
+						StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
+						StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
+						if (thirdlinenumberArray1 >= secondlinenumberArray1 and thirdlinenumberArray2 >= secondlinenumberArray2) 
+						{
+							Gosub, ClickThirdLine
+							Gosub, ClickSelect
+							ExitApp
+							;chose
+						}
+						else
+						{
+							Gosub, ClickSecondLine
+							Gosub, ClickSelect
+							ExitApp
+							;chose
+						}
+					}
+					IfNotInString, thirdline, %Desired% 
+					{
+						Gosub, ClickSecondLine
+						Gosub, ClickSelect
+						ExitApp
+						;chose
+					}
+				}
+				else
+				{
+					IfInString, thirdline, %Desired%
+					{
+						StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
+						StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
+						if (thirdlinenumberArray1 >= DesiredNumberArray1 and thirdlinenumberArray2 >= DesiredNumberArray2) 
+						{
+							Gosub, ClickThirdLine
+							Gosub, ClickSelect
+							ExitApp
+							;chose
+						}
+						else
+						{
+							Gosub, ClickFirstLine
+							Gosub, ClickSelect
+						}
+					}
+					else
+					{
+						Gosub, ClickFirstLine
+						Gosub, ClickSelect
+					}
+				}
+			}
+			else
+			{
+				IfInString, thirdline, %Desired% 
+				{
+					StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
+					StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
+					if (thirdlinenumberArray1 >= DesiredNumberArray1 and thirdlinenumberArray2 >= DesiredNumberArray2) 
+					{
+						Gosub, ClickThirdLine
+						Gosub, ClickSelect
+						ExitApp
+						;chose
+					}
+					else
+					{
+						Gosub, ClickFirstLine
+						Gosub, ClickSelect
+					}
 				}
 				else
 				{
@@ -98,15 +207,11 @@ CoordMode, Mouse, Screen
 					Gosub, ClickSelect
 				}
 			}
-			else
-			{
-				Gosub, ClickFirstLine
-				Gosub, ClickSelect
-			}
+			Tries--
+			IniWrite, %Tries%, OCRsettings.ini, Settings, Tries
+			reload
 		}
-		Tries--
-		IniWrite, %Tries%, OCRsettings.ini, Settings, Tries
-		reload
+		
 	}
 	else {
 		MsgBox Tries Over

@@ -36,6 +36,7 @@ ExitApp
 
 DoStart:
 	Gui, Submit, NoHide
+	WinActivate, Diablo III	
 	IniWrite, %Tries%, OCRsettings.ini, Settings, Tries
 	IniWrite, %Desired%, OCRsettings.ini, Settings, Desired
 	IniWrite, %DesiredNumber%, OCRsettings.ini, Settings, DesiredNumber
