@@ -33,3 +33,6 @@ based on your internet delay
 Special Thanks:
 -DaLeberkasPepi For the ConvertCoordinate function
 -duderde For distributing the first versions of OCR Enchange       
+
+Donations to:
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JRJJX63FGSZ7G
