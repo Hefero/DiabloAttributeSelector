@@ -105,21 +105,17 @@ CoordMode, Mouse, Screen
 		IfInString, DesiredNumber, - ;;it is a damage roll
 		{
 			
-			StringLeft, DesiredNumberArray1, DesiredNumber, 4			
-			StringRight, DesiredNumberArray2, DesiredNumber, 4			
-			
+			StringSplit, DesiredNumberArray, DesiredNumber, -
 			
 			IfInString, secondline, %Desired% 
 			{
 				
-				StringLeft, secondlinenumberArray1, secondlinenumber, 4			
-				StringRight, secondlinenumberArray2, secondlinenumber, 4	
+				StringSplit, secondlinenumberArray, secondlinenumber, -
 				if (secondlinenumberArray1 >= DesiredNumberArray1 and secondlinenumberArray2 >= DesiredNumberArray2)
 				{
 					IfInString, thirdline, %Desired% 
 					{
-						StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
-						StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
+						StringSplit, thirdlinenumberArray, thirdlinenumber, -
 						if (thirdlinenumberArray1 >= secondlinenumberArray1 and thirdlinenumberArray2 >= secondlinenumberArray2) 
 						{
 							Gosub, ClickThirdLine
@@ -147,8 +143,7 @@ CoordMode, Mouse, Screen
 				{
 					IfInString, thirdline, %Desired%
 					{
-						StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
-						StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
+						StringSplit, thirdlinenumberArray, thirdlinenumber, -
 						if (thirdlinenumberArray1 >= DesiredNumberArray1 and thirdlinenumberArray2 >= DesiredNumberArray2) 
 						{
 							Gosub, ClickThirdLine
@@ -173,8 +168,7 @@ CoordMode, Mouse, Screen
 			{
 				IfInString, thirdline, %Desired% 
 				{
-					StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
-					StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
+					StringSplit, thirdlinenumberArray, thirdlinenumber, -
 					if (thirdlinenumberArray1 >= DesiredNumberArray1 and thirdlinenumberArray2 >= DesiredNumberArray2) 
 					{
 						Gosub, ClickThirdLine
