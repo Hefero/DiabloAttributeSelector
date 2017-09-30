@@ -9,29 +9,19 @@ SetDefaultMouseSpeed, 0
 SetControlDelay, -1
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
-;Initialize Variables and Coordinates
+	;Initialize Variables and Coordinates
 	Global readfirstline := 0	
 	Gosub, CoordinateSystem
-	
 	IniRead, Tries, OCRsettings.ini, Settings, Tries
+	IniRead, SleepClick, OCRsettings.ini, Settings, SleepClick
+	IniRead, Desired, OCRsettings.ini, Settings, Desired
+	IniRead, DesiredNumber, OCRsettings.ini, Settings, DesiredNumber
+	IniRead, SleepWait, OCRsettings.ini, Settings, SleepWait
 	
-	if (Tries > 0) {
-		IniRead, SleepClick, OCRsettings.ini, Settings, SleepClick
+	While (Tries > 0) {
 		Gosub, ClickSelect
-		
-		IniRead, Desired, OCRsettings.ini, Settings, Desired
-		IniRead, DesiredNumber, OCRsettings.ini, Settings, DesiredNumber
-		IniRead, DesiredNumber, OCRsettings.ini, Settings, DesiredNumber
-		IniRead, SleepWait, OCRsettings.ini, Settings, SleepWait
-		
 		Sleep %SleepWait%
-		Gosub, RunReaders
-		
-		
-		
-		
-		
-		
+		Gosub, RunReaders ;; OCRs
 		
 		IfNotInString, DesiredNumber, - ;;note a damage number
 		{			
@@ -111,22 +101,25 @@ CoordMode, Mouse, Screen
 					Gosub, ClickSelect
 				}
 			}
-			Tries--
-			IniWrite, %Tries%, OCRsettings.ini, Settings, Tries
-			reload
 		}
 		IfInString, DesiredNumber, - ;;it is a damage roll
 		{
 			
-			StringSplit, DesiredNumberArray, DesiredNumber, -	
+			StringLeft, DesiredNumberArray1, DesiredNumber, 4			
+			StringRight, DesiredNumberArray2, DesiredNumber, 4			
+			
+			
 			IfInString, secondline, %Desired% 
 			{
-				StringSplit, secondlinenumberArray1, secondlinenumber, -
+				
+				StringLeft, secondlinenumberArray1, secondlinenumber, 4			
+				StringRight, secondlinenumberArray2, secondlinenumber, 4	
 				if (secondlinenumberArray1 >= DesiredNumberArray1 and secondlinenumberArray2 >= DesiredNumberArray2)
 				{
 					IfInString, thirdline, %Desired% 
 					{
-						StringSplit, thirdlinenumberArray, thirdlinenumber, -
+						StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
+						StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
 						if (thirdlinenumberArray1 >= secondlinenumberArray1 and thirdlinenumberArray2 >= secondlinenumberArray2) 
 						{
 							Gosub, ClickThirdLine
@@ -154,7 +147,8 @@ CoordMode, Mouse, Screen
 				{
 					IfInString, thirdline, %Desired%
 					{
-						StringSplit, thirdlinenumberArray, thirdlinenumber, -
+						StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
+						StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
 						if (thirdlinenumberArray1 >= DesiredNumberArray1 and thirdlinenumberArray2 >= DesiredNumberArray2) 
 						{
 							Gosub, ClickThirdLine
@@ -179,7 +173,8 @@ CoordMode, Mouse, Screen
 			{
 				IfInString, thirdline, %Desired% 
 				{
-					StringSplit, thirdlinenumberArray, thirdlinenumber, -
+					StringLeft, thirdlinenumberArray1, thirdlinenumber, 4			
+					StringRight, thirdlinenumberArray2, thirdlinenumber, 4	
 					if (thirdlinenumberArray1 >= DesiredNumberArray1 and thirdlinenumberArray2 >= DesiredNumberArray2) 
 					{
 						Gosub, ClickThirdLine
@@ -199,31 +194,25 @@ CoordMode, Mouse, Screen
 					Gosub, ClickSelect
 				}
 			}
-			Tries--
-			IniWrite, %Tries%, OCRsettings.ini, Settings, Tries
-			reload
 		}
-		
+		Tries--
 	}
-	else {
-		MsgBox Tries Over
-	}
-ExitApp
-
+	MsgBox Tries Over
+	ExitApp
 CoordinateSystem:
 	;Initialize Coordinates and Convert them
-	global FirstLine := [ 75, 375, 445, 420, 2 ]
-	global SecondLine := [ 75, 420, 445, 460, 2 ]
-	global ThirdLine := [ 75, 460, 445, 505, 2 ]
+	global FirstLinePos := [ 75, 375, 445, 420, 2 ]
+	global SecondLinePos := [ 75, 420, 445, 460, 2 ]
+	global ThirdLinePos := [ 75, 460, 445, 505, 2 ]
 	global FirstLineClick := [ 255, 400, 2]
 	global SecondLineClick := [ 255, 440, 2]
 	global ThirdLineClick := [ 255, 480, 2]
 	global SelectClick := [ 255, 780, 2]
 	wOrigin := 1920
 	hOrigin := 1080
-	ConvertCoordinates(FirstLine,wOrigin,hOrigin)
-	ConvertCoordinates(SecondLine,wOrigin,hOrigin)
-	ConvertCoordinates(ThirdLine,wOrigin,hOrigin)
+	ConvertCoordinates(FirstLinePos,wOrigin,hOrigin)
+	ConvertCoordinates(SecondLinePos,wOrigin,hOrigin)
+	ConvertCoordinates(ThirdLinePos,wOrigin,hOrigin)
 	ConvertClick(FirstLineClick,wOrigin,hOrigin)
 	ConvertClick(SecondLineClick,wOrigin,hOrigin)
 	ConvertClick(ThirdLineClick,wOrigin,hOrigin)
@@ -233,18 +222,18 @@ return
  RunReaders:
 	;OCR Reader
 	if (readfirstline = 1){
-		StringRun := A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe --clipboard -o lastread.txt --screen-rect """ . FirstLine[1] . " " . FirstLine[2] . " " . FirstLine[3] . " " . FirstLine[4] . """"
+		StringRun := A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe --clipboard -o lastread.txt --output-file-append --screen-rect """ . FirstLinePos[1] . " " . FirstLinePos[2] . " " . FirstLinePos[3] . " " . FirstLinePos[4] . """"
 		RunWait, %StringRun%,%A_ScriptDir%, Hide, ocrPID
 		Process, WaitClose, %ocrPID%
 		global firstline := clipboard
 		global firstlinenumber := ExtractNumbers(firstline)
 	}
-	StringRun := A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe --clipboard -o lastread.txt --screen-rect """ . SecondLine[1] . " " . SecondLine[2] . " " . SecondLine[3] . " " . SecondLine[4] . """"
+	StringRun := A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe --clipboard -o lastread.txt --output-file-append --screen-rect """ . SecondLinePos[1] . " " . SecondLinePos[2] . " " . SecondLinePos[3] . " " . SecondLinePos[4] . """"
 	RunWait, %StringRun%,%A_ScriptDir%, Hide, ocrPID
 	Process, WaitClose, %ocrPID%
 	global secondline := clipboard
 	global secondlinenumber := ExtractNumbers(secondline)
-	StringRun := A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe --clipboard -o lastread.txt --screen-rect """ . ThirdLine[1] . " " . ThirdLine[2] . " " . ThirdLine[3] . " " . ThirdLine[4] . """"
+	StringRun := A_ScriptDir . "\Capture2Text\Capture2Text_CLI.exe --clipboard -o lastread.txt --output-file-append --screen-rect """ . ThirdLinePos[1] . " " . ThirdLinePos[2] . " " . ThirdLinePos[3] . " " . ThirdLinePos[4] . """"
 	RunWait, %StringRun%,%A_ScriptDir%, Hide, ocrPID
 	Process, WaitClose, %ocrPID%
 	global thirdline := clipboard
@@ -325,6 +314,10 @@ ExtractNumbers(MyString){
 		IfInString, checklastdigit , . 
 			StringTrimRight, NewVar, NewVar, 1
 	StringReplace, NewVar, NewVar,`,,., ;;replaces commas with dots
+	FoundPos := InStr(NewVar, "-")
+	if (FoundPos = 1){
+		StringTrimLeft,NewVar,NewVar,1
+	}
 	Return NewVar
 }
 
