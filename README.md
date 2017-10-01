@@ -43,14 +43,25 @@ that it runs very very fast.
 -You need to run game in Windowed(Fullscreen mode)
 
 -Tested Resolutions:
-	1920x1080
-	1680x1050
-	1600x900
-	1366x768
-	1280x1024
-	1280x768
-	1024x768
-	800x600
+
+4096x2160
+3840x2160
+2560x1600
+3440x1440
+2560x1440
+2560x1080
+2160x1200
+2048x1536
+1920x1440
+1900x1200
+1920x1080
+1680x1050
+1600x900
+1366x768
+1280x1024
+1280x768
+1024x768
+800x600 (Doesnt work)
 
 Special Thanks:
 -DaLeberkasPepi For the ConvertCoordinate function
