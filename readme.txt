@@ -13,7 +13,8 @@ ______ _____  ___ _________  ___ _____
 | | | | (_) \ V  V /  | || (_) | | |_| \__ \  __/                                    
 \_| |_/\___/ \_/\_/    \__\___/   \___/|___/\___|  
 
-- Unzip Capture2Text into the Script folder. 
+- Unzip Capture2Text into the Script folder and name 
+the folder Capture2Text (included in the full version). 
 [Version Tested: 4.4.0 (7-28-2017)]
 (32 or 64bit, doesn't matter) 
 downloaded at: http://capture2text.sourceforge.net/
