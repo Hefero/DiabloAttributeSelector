@@ -1,7 +1,8 @@
 
  #Diablo 3 OCR Enchange made by Hefero
 
-- Unzip Capture2Text into the Script folder. 
+- Unzip Capture2Text into the Script folder and name 
+the folder Capture2Text (included in the full version) 
 [Version Tested: 4.4.0 (7-28-2017)]
 (32 or 64bit, doesn't matter) 
 downloaded at: http://capture2text.sourceforge.net/
