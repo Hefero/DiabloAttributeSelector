@@ -1,5 +1,5 @@
 
- This programa is OBSOLETE, please refeer to https://github.com/DaLeberkasPepi/MysticManager
+ This program is OBSOLETE, please refeer to https://github.com/DaLeberkasPepi/MysticManager
  
  #Diablo 3 OCR Enchange made by Hefero
 
